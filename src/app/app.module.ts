@@ -8,6 +8,8 @@ import { ValueComponent } from './value/value.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
 
+import { AuthService } from './_services/auth.service';
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -20,7 +22,7 @@ import { NavComponent } from './nav/nav.component';
       HttpClientModule,
       FormsModule
    ],
-   providers: [],
+   providers: [AuthService],
    bootstrap: [
       AppComponent
    ]
