@@ -10,6 +10,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError(err => {
+                 // console.log(err);
                 if (err instanceof HttpErrorResponse) {
 
                     if(err.status === 401) {
@@ -20,10 +21,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                         return throwError(applicationError);
                     }
                     const serverError = err.error;
+                    // console.log(JSON.stringify(serverError));
                     let modelStateError = '';
                     if (serverError && typeof serverError === 'object') {
                         for (const key in serverError) {
-                            if(serverError[key]) {
+                            if (serverError[key]) {
                                 modelStateError += serverError[key] + '\n';
                             }
                         }
