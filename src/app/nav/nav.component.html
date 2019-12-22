@@ -24,7 +24,8 @@
 
     <div *ngIf="loggedIn()" class="dropdown">
         <a class="dropdown-toggle text-light">
-            Welcome User
+            <!-- added ? in case to check not required -->
+            Welcome {{authService.decodedToken?.unique_name | titlecase}}
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

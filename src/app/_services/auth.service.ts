@@ -10,6 +10,8 @@ export class AuthService {
 
   baseUrl = 'http://localhost:27050/api/auth/';
   jwtHelper = new JwtHelperService();
+  decodedToken: any;
+
   constructor(private http: HttpClient) { }
 
   // pipe allow us to chain rxjs operator to our request
@@ -21,6 +23,8 @@ export class AuthService {
         const user = res;
         if (user) {
           localStorage.setItem('token', user.token);
+          this.decodedToken = this.jwtHelper.decodeToken(user.token);
+          console.log(this.decodedToken);
         }
       })
     );
