@@ -1,53 +1,53 @@
 <nav class="navbar navbar-expand-md navbar-dark  bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">Dating App</a>
-    <!-- since below code need jquery so commenting for time beiong.. -->
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        <a class="navbar-brand" [routerLink]="['/home']">Dating App</a>
+        <!-- since below code need jquery so commenting for time beiong.. -->
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button> -->
 
-    <!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault"> -->
-    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href="#">Matches </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Lists</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Messages</a>
-        </li>
-    </ul>
+        <!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault"> -->
+        <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/members']">Matches </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/lists']">Lists</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/messages']">Messages</a>
+            </li>
+        </ul>
 
-    <!-- dropdown is populating using ngx bootstrap https://valor-software.com/ngx-bootstrap -->
-    <!-- we did not used jquery with bootstrap as we want to stick with angular -->
-    <div *ngIf="loggedIn()" class="dropdown" dropdown >
-        <a class="dropdown-toggle text-light" dropdownToggle >
-            <!-- added ? in case to check not required -->
-            Welcome {{authService.decodedToken?.unique_name | titlecase}}
-        </a>
+        <!-- dropdown is populating using ngx bootstrap https://valor-software.com/ngx-bootstrap -->
+        <!-- we did not used jquery with bootstrap as we want to stick with angular -->
+        <div *ngIf="loggedIn()" class="dropdown" dropdown>
+            <a class="dropdown-toggle text-light" dropdownToggle>
+                <!-- added ? in case to check not required -->
+                Welcome {{authService.decodedToken?.unique_name | titlecase}}
+            </a>
 
-        <div class="dropdown-menu mt-3"  *dropdownMenu>
-            <a class="dropdown-item" href="#"><i class="fa fa-user"></i>  Edit Profile</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+            <div class="dropdown-menu mt-3" *dropdownMenu>
+                <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edit Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+            </div>
         </div>
-    </div>
 
 
-    <!-- here loginForm if ref var for form and by using ngForm directive we say angular that it is form -->
-    <!-- Also to use this we need to import this in app module -->
-    <form #loginForm="ngForm" *ngIf="!loggedIn()" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
-        <input class="form-control mr-sm-2" type="text" name="username" placeholder="Username" required
-            #username="ngModel" [(ngModel)]="model.username">
-        <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required
-            #password="ngModel" [(ngModel)]="model.password">
-        <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
-    </form>
-    <!-- </div> -->
+        <!-- here loginForm if ref var for form and by using ngForm directive we say angular that it is form -->
+        <!-- Also to use this we need to import this in app module -->
+        <form #loginForm="ngForm" *ngIf="!loggedIn()" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
+            <input class="form-control mr-sm-2" type="text" name="username" placeholder="Username" required
+                #username="ngModel" [(ngModel)]="model.username">
+            <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required
+                #password="ngModel" [(ngModel)]="model.password">
+            <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+        </form>
+        <!-- </div> -->
     </div>
-    
+
 </nav>
 
 
