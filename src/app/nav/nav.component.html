@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
-    <a class="navbar-brand" href="#">Dating App</a>
+    <div class="container">
+        <a class="navbar-brand" href="#">Dating App</a>
     <!-- since below code need jquery so commenting for time beiong.. -->
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,7 +8,7 @@
     </button> -->
 
     <!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault"> -->
-    <ul class="navbar-nav mr-auto">
+    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
         <li class="nav-item active">
             <a class="nav-link" href="#">Matches </a>
         </li>
@@ -17,21 +18,20 @@
         <li class="nav-item">
             <a class="nav-link" href="#">Messages</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)="logout()">Logout</a>
-        </li>
     </ul>
 
-    <div *ngIf="loggedIn()" class="dropdown">
-        <a class="dropdown-toggle text-light">
+    <!-- dropdown is populating using ngx bootstrap https://valor-software.com/ngx-bootstrap -->
+    <!-- we did not used jquery with bootstrap as we want to stick with angular -->
+    <div *ngIf="loggedIn()" class="dropdown" dropdown >
+        <a class="dropdown-toggle text-light" dropdownToggle >
             <!-- added ? in case to check not required -->
             Welcome {{authService.decodedToken?.unique_name | titlecase}}
         </a>
 
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <div class="dropdown-menu mt-3"  *dropdownMenu>
             <a class="dropdown-item" href="#"><i class="fa fa-user"></i>  Edit Profile</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+            <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
         </div>
     </div>
 
@@ -46,6 +46,8 @@
         <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
     <!-- </div> -->
+    </div>
+    
 </nav>
 
 
