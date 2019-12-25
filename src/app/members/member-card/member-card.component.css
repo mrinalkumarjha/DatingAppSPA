@@ -1,0 +1,42 @@
+/* this class zoom out the image when user hover on it */
+.card:hover img {
+transform: scale(1.2,1.2);
+transition-duration: 500ms;
+transition-timing-function: ease-out;
+opacity: 0.7;
+}
+    
+/* this css used when user over from image so image comes into original state */
+.card img {
+transform: scale(1.0,1.0);
+transition-duration: 500ms;
+transition-timing-function: ease-out;
+}
+    
+/*  by this image wont be overflow of wrapper div */
+.card-image-wrapper{
+overflow: hidden;
+position: relative;
+}
+
+/* this is for icon. by opacity initially element wont be visible so 3 button wont be visible */
+.member-icons{
+    position: absolute;
+    bottom: -30%;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+    opacity: 0; 
+}
+
+/* that three icon buttons will be visible here */
+.card-image-wrapper:hover .member-icons{
+    bottom: 0;
+    opacity: 1;
+}
+
+/* this class is used to animate 3 button from bottom to up */
+.animate{
+    transition: all 0.3s ease-in-out;
+}
