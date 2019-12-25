@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,10 @@ import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 
+// exporting token for automatic injection
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -37,7 +42,15 @@ import { MemberCardComponent } from './members/member-card/member-card.component
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
-      BsDropdownModule.forRoot()
+      BsDropdownModule.forRoot(),
+      // by this we are injecting token automatically to whitelited domain
+      JwtModule.forRoot({
+         config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:27050'],
+            blacklistedRoutes: ['localhost:27050/api/auth']
+         }
+      })
    ],
    providers:
       [
