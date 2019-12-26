@@ -25,3 +25,19 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## Automating header passing
+
+we use JwtModule to inject authentication automatically to request. for detail see appmodule. 
+it will inject auth token to all whitelist domain . it will skip blacklist domain route to inject token
+Example 
+
+ JwtModule.forRoot({
+         config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:27050'],
+            blacklistedRoutes: ['localhost:27050/api/auth']
+         }
+      })
+
