@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +49,7 @@ export function tokenGetter() {
       FormsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
+      NgxGalleryModule,
       // by this we are injecting token automatically to whitelited domain
       JwtModule.forRoot({
          config: {

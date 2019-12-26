@@ -45,7 +45,8 @@
                         <p>{{user.interests}}</p>
                     </tab>
                     <tab heading="Photos">
-                        <h4>Photos will go here</h4>
+                        <!-- this is ngx gallary library to show photos gallary -->
+                        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
                     </tab>
                     <tab heading="Messages">
                         <h4>Messages will go here</h4>
@@ -55,3 +56,33 @@
         </div>
     </div>
 </div>
+
+<pre>
+    <!-- A temporary fix for gally error is below that works 100 for now. need to change ngx-gallery.umd.js from node-module :
+    in the file ngx-gallery.umd.js changes this lines of code :
+    
+    var CustomHammerConfig = /** @Class */ (function (_super) {
+    __extends(CustomHammerConfig, _super);
+    function CustomHammerConfig() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+    _this.overrides = ({
+    'pinch': { enable: false },
+    'rotate': { enable: false }
+    });
+    return _this;
+    }
+    return CustomHammerConfig;
+    }(platformBrowser.HammerGestureConfig));
+    
+    to :
+    
+    class CustomHammerConfig extends platformBrowser.HammerGestureConfig {
+    constructor() {
+    super(...arguments);
+    this.overrides = ({
+    'pinch': { enable: false },
+    'rotate': { enable: false }
+    });
+    }
+    } -->
+</pre>
