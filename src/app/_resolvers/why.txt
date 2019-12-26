@@ -1,0 +1,18 @@
+porblem : 
+
+when we pass data to controller and load using {{user?.name}}. here we have to use safe navigation 
+operator (?) . other wise it gives undefined error if controller loads without data. so we make it 
+not required by ?
+It is very tideous to put ? each place. so below are the solution of this.
+
+Solution: 
+
+Use route resolver to get data from route directly.
+
+So basically resolver is that intermediate code, which can be executed when a link has been
+ clicked and before a component is loaded.
+
+ by this we dont need to use safe navigation (?)
+
+
+
