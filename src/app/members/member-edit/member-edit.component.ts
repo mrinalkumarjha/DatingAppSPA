@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { User } from 'src/app/_models/user';
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from 'src/app/_services/alertify.service';
@@ -10,8 +10,17 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./member-edit.component.css']
 })
 export class MemberEditComponent implements OnInit {
-  @ViewChild('editForm', {static: false}) editForm: NgForm; // used to reset form once saved
   user: User;
+  @ViewChild('editForm', {static: false}) editForm: NgForm; // used to reset form once saved
+
+  // it listen to browser event and prompt if accidently user click close browser
+  // so prevents unsaved changes from browser close
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.editForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
 
   constructor(private route: ActivatedRoute, private alertifyService: AlertifyService) { }
 
