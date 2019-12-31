@@ -41,3 +41,8 @@ Example
          }
       })
 
+
+## Photo uploading
+
+we use ng2 file uploade library to upload file.
+npm i ng2-file-upload --save
