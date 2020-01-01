@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Photo } from 'src/app/_models/photo';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
@@ -13,9 +13,11 @@ const URL = '';
 })
 export class PhotoEditorComponent implements OnInit {
   @Input() photos: Photo[];
+  @Output() getMemberPhotoChange = new EventEmitter<string>(); // used to emit photo change from child to parent
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
+  currentMainPhoto: Photo;
 
   constructor(private authService: AuthService, 
     private userService: UserService,
@@ -61,7 +63,10 @@ export class PhotoEditorComponent implements OnInit {
   setMainPhoto(photo: Photo) {
     this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(
       () => {
-        console.log('successfully set to mail');
+        this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
+        this.currentMainPhoto.isMain = false;
+        photo.isMain = true;
+        this.getMemberPhotoChange.emit(photo.url); // we can emit object alsoS
       },
       err => {
         this.alertifyService.error(err);
