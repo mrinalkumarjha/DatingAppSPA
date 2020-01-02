@@ -19,7 +19,7 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   currentMainPhoto: Photo;
 
-  constructor(private authService: AuthService, 
+  constructor(private authService: AuthService,
     private userService: UserService,
     private alertifyService: AlertifyService) { }
 
@@ -42,7 +42,7 @@ export class PhotoEditorComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
 
-    this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     // added this to show photo immidiately photo uploaded
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
@@ -66,7 +66,11 @@ export class PhotoEditorComponent implements OnInit {
         this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
         this.currentMainPhoto.isMain = false;
         photo.isMain = true;
-        this.getMemberPhotoChange.emit(photo.url); // we can emit object alsoS
+        //this.getMemberPhotoChange.emit(photo.url); // we can emit object alsoS
+        this.authService.changeMemberPhoto(photo.url);
+        this.authService.currentUser.photoUrl = photo.url;
+        localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+
       },
       err => {
         this.alertifyService.error(err);
