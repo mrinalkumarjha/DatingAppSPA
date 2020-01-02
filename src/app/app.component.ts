@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './_services/auth.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import { User } from './_models/user';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,12 @@ export class AppComponent implements OnInit {
     // this is used to set decoded token in auth service. so that name will be displayed 
     // even browser refress is pressed.
     const token = localStorage.getItem('token');
+    const user: User = JSON.parse(localStorage.getItem('user'));
     if (token) {
       this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+    }
+    if (user) {
+      this.authService.currentUser = user;
     }
   }
 

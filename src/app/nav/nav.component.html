@@ -23,6 +23,9 @@
         <!-- dropdown is populating using ngx bootstrap https://valor-software.com/ngx-bootstrap -->
         <!-- we did not used jquery with bootstrap as we want to stick with angular -->
         <div *ngIf="loggedIn()" class="dropdown" dropdown>
+            <span class="mr-1" >
+            <img src="{{authService.currentUser.photoUrl}}" alt="">
+            </span  >
             <a class="dropdown-toggle text-light" dropdownToggle>
                 <!-- added ? in case to check not required -->
                 Welcome {{authService.decodedToken?.unique_name | titlecase}}
