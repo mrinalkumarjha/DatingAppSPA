@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
-import { retry, retryWhen, delay } from 'rxjs/operators';
+import { retry, retryWhen, delay, scan } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav',
@@ -24,7 +24,24 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.login(this.model)
     .pipe(
-    retryWhen((err) => err.pipe(delay(5000))) // retry only when error and with delay of 5 sec
+    retryWhen((err) =>  {
+    return err.pipe( scan((retryCount) => {
+    retryCount += 1;
+    if (retryCount < 6) {
+      this.alertify.warning('Retrying attempt....' + retryCount);
+      return retryCount;
+    }
+    else
+    {
+      throw(err);
+    }
+  
+
+    }, 0)
+    //.delay(5000)
+    )}
+    
+    ) // retry only when error and with delay of 5 sec
     )
     .subscribe(next => {
       this.alertify.success('logged in successfully..');
