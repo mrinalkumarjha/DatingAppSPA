@@ -24,7 +24,7 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.login(this.model)
     .pipe(
-    retry()
+    retry(3) // retry with specific time
     )
     .subscribe(next => {
       this.alertify.success('logged in successfully..');
