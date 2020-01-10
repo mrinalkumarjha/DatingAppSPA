@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { BsDaterangepickerConfig } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup;
+  bsConfig: Partial<BsDaterangepickerConfig>;
   // @Input() valuesFromHome: any; // valuesFromHome this name should be same as passed from parent
   // cancelRegister is event emitter used to pass value from child comp to parent
   // note to always import event emitter from angular core.
@@ -30,6 +32,10 @@ export class RegisterComponent implements OnInit {
     // );
 
     // Form using form builder
+    this.bsConfig = {
+      containerClass: 'theme-red'
+    };
+
     this.createRegisterForm();
   }
 
