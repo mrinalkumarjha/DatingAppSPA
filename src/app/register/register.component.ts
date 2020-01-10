@@ -12,6 +12,7 @@ import { BsDaterangepickerConfig } from 'ngx-bootstrap';
 export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup;
+  // Created partial as BsDaterangepickerConfig has so many required field but we need to use one
   bsConfig: Partial<BsDaterangepickerConfig>;
   // @Input() valuesFromHome: any; // valuesFromHome this name should be same as passed from parent
   // cancelRegister is event emitter used to pass value from child comp to parent
