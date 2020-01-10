@@ -23,34 +23,30 @@ export class NavComponent implements OnInit {
 
   login() {
     this.authService.login(this.model)
-    .pipe(
-    retryWhen((err) =>  {
-    return err.pipe( scan((retryCount) => {
-    retryCount += 1;
-    if (retryCount < 6) {
-      this.alertify.warning('Retrying attempt....' + retryCount);
-      return retryCount;
-    }
-    else
-    {
-      throw(err);
-    }
-  
-
-    }, 0)
-    //.delay(5000)
-    )}
-    
-    ) // retry only when error and with delay of 5 sec
-    )
-    .subscribe(next => {
-      this.alertify.success('logged in successfully..');
-    },
-      error => {
-        this.alertify.error(error);
+      .pipe(
+        retryWhen((err) => {
+          return err.pipe(scan((retryCount) => {
+            retryCount += 1;
+            if (retryCount < 6) {
+              this.alertify.warning('Retrying attempt....' + retryCount);
+              return retryCount;
+            } else {
+              throw (err);
+            }
+          }, 0)
+            //.delay(5000)
+          )
+        }
+        ) // retry only when error and with delay of 5 sec
+      )
+      .subscribe(next => {
+        this.alertify.success('logged in successfully..');
       },
-      () => { this.router.navigate(['/members']); }
-    );
+        error => {
+          this.alertify.error(error);
+        },
+        () => { this.router.navigate(['/members']); }
+      );
   }
 
   loggedIn() {

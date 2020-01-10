@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -59,10 +59,11 @@ export function tokenGetter() {
       TabsModule.forRoot(),
       NgxGalleryModule,
       FileUploadModule,
+      ReactiveFormsModule,
       // by this we are injecting token automatically to whitelited domain
       JwtModule.forRoot({
          config: {
-            tokenGetter: tokenGetter,
+            tokenGetter, // tokenGetter method will be passed. as name is same as func so we can use single name only
             whitelistedDomains: ['localhost:27050'],
             blacklistedRoutes: ['localhost:27050/api/auth']
          }
