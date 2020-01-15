@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
     // even browser refress is pressed.
     const token = localStorage.getItem('token');
     // console.log(localStorage.getItem('user'));
+    console.log(JSON.parse(localStorage.getItem('user')));
     const user: User = JSON.parse(localStorage.getItem('user'));
     if (token) {
       this.authService.decodedToken = this.jwtHelper.decodeToken(token);
