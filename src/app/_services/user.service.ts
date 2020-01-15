@@ -15,7 +15,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   // Since this method will get array of user so we created user type obseervavle
-  getUsers(page?, itemsPerPage?): Observable<PaginatedResult<User[]>> {
+  getUsers(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
 
     let params = new HttpParams();
@@ -25,17 +25,23 @@ export class UserService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.http.get<User[]>(this.baseUrl + 'users', {observe: 'response', params})
-    .pipe(
-      map(response => {
-        paginatedResult.result = response.body;
+    if (userParams != null) {
+      params = params.append('minAge', userParams.minAge);
+      params = params.append('maxAge', userParams.maxAge);
+      params = params.append('gender', userParams.gender);
+    }
 
-        if(response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
-        }
-        return paginatedResult;
-      })
-    );
+    return this.http.get<User[]>(this.baseUrl + 'users', { observe: 'response', params })
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
   }
 
   getUser(id): Observable<User> {
