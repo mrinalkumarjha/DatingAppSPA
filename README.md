@@ -14,6 +14,22 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+when we do ng serve or ng build JIT compilation takes place
+when we do ng build --prod AOT(ahed of time) compiler takes place
+
+AOT gives several benifits :
+1: Faaster rendering
+2: Fewer async request
+3: Smaller Framework download size
+4: Detect template errors earlier
+5: Better security
+
+If you find css related issue with production build then turn off build optimiser 
+which on by default in production build. But this increase little bit your main file size.
+
+command to off optimizer : ng build --prod --build-optimizer=false
+
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
